@@ -1,0 +1,58 @@
+extends layout
+block append head
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/client.js")
+  style.
+    .details span{
+      display: block;
+    }
+    #radioChat, #radioMotion, #radioVote, #radioFloor{
+      display: block;
+      width: 1em;
+      height: 1em;
+    }
+    #radioTypes{
+      float: left;
+      width: 1em;
+    }
+    #radioLabels{
+      float: left;
+      margin-left: 0.5em;
+    }
+    label{ 
+      display: block;
+      height: 1em;
+    }
+    #rightControls{
+      margin-left: 8em;
+    }
+
+block append content
+  if(locals.room.name != null)
+    h1#roomTitle(data-roomid=locals.room.id)= locals.room.name
+  else
+    h1#roomTitle(data-roomid=locals.room.id) NJ's CNM Moderation Prototype
+  ul#history
+    each item in locals.room.history
+      li(class=item.type)
+        span.type= item.type
+        div.details
+          span.timestamp #{locals.prettify(item.timestamp)}
+          span.author= item.author
+          span.text= item.text
+
+  input#username(type='text', value='Anonymous', placeholder='Your Name')
+  div#controls Do your thang:
+    div#radioTypes
+      input#radioChat(type='radio', name='type', value='chat')
+      input#radioMotion(type='radio', name='type', value='motion')
+      input#radioVote(type='radio', name='type', value='vote')
+      input#radioFloor(type='radio', name='type', value='floor')
+    div#radioLabels
+      label(for='radioChat') Chat
+      label(for='radioMotion') Motion
+      label(for='radioVote') Vote
+      label(for='radioFloor') Request Floor
+    div#rightControls
+      input#updateText(type='text')
+      input#updateSend(type='button', value='Send')

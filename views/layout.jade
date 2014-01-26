@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    - var title2 = locals.title || "CNM Mod App"
+    title= title2
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    block head
+  body
+    block content
