@@ -74,10 +74,16 @@ server.listen(app.get('port'), function(){
 */
 
 // CONNECT TO UNIX SOCKET:
+/*
 var net = require('net');
 var server = net.createServer("../var/node.sock", app);
 server.listen("../var/node.sock", function(){
   console.log("Express server listening on ../var/node.sock");
+});
+*/
+var server = require('http').createServer(app);
+server.listen("../var/node.sock", function(){
+  console.log('Express server listening on port ' + app.get('port'));
 });
 
 
